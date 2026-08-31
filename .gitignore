@@ -1,0 +1,8 @@
+# Local files
+Local/
+/Notes
+
+# System files
+.DS_Store
+.vscode
+
