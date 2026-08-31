@@ -1,8 +1,14 @@
 # Local files
 Local/
 /Notes
+/Design
 
 # System files
 .DS_Store
 .vscode
 
+# Drawio backup files
+.$*
+
+# Python venv
+src/.venv/
