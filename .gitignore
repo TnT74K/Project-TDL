@@ -2,6 +2,7 @@
 Local/
 /Notes
 /Knowledge
+/storage
 
 # System files
 .DS_Store
@@ -10,5 +11,6 @@ Local/
 # Drawio backup files
 .$*
 
-# Python venv
+# Python
 src/.venv/
+src/__pycache__
