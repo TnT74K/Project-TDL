@@ -27,11 +27,12 @@ def load_lists():
 
 
 def save_lists(lists):
-    with open("stoarge/Lists.csv", "w", newline="") as lists_file:
-        list_writer = csv.DictWriter(lists_file)
+    with open("storage/Lists.csv", "w", newline="") as lists_file:
+        list_writer = csv.writer(lists_file)
         list_writer.writerow(["ID", "name"])  # Write headers
 
         for current_list in lists:
+            list_writer.writerow([current_list.id, current_list.name])
             with open(
                 f"storage/L-{current_list.id}.csv", "w", newline=""
             ) as list_tasks_file:
@@ -42,13 +43,17 @@ def save_lists(lists):
 
                 for task in current_list.tasks:
                     task_writer.writerow([task.name, task.description, task.pirority])
+    print("Done!")
 
 
 to_do_lists = load_lists()
-print(to_do_lists[0].tasks[0].description)
-test_tasks = [Task("Physics", "Do 100 tests", "high"), 
-              Task("Chemistry", "Finish a self-exam", "medium"),
-              Task("Math", "Watch the online course", "low")]
+# print(to_do_lists[0].tasks[0].description)
+test_tasks = [
+    Task("Physics", "Do 100 tests", "high"),
+    Task("Chemistry", "Finish a self-exam", "medium"),
+    Task("Math", "Watch the online course", "low"),
+]
 
-to_do_lists[1] = ToDoList("Konkour Study", test_tasks, 1)
+to_do_lists.append(ToDoList("Konkour Study", test_tasks, 2))
 
+save_lists(to_do_lists)
