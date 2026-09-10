@@ -2,15 +2,49 @@ print("\n\n")
 from definitions import *
 from list_manager import *
 
-to_do_lists = load_lists()
-print(to_do_lists[0].tasks[0].description)
+task_lists = load_lists()
+number_of_lists = len(task_lists)
 
-test_tasks = [
-    Task("Physics", "Do 100 tests", "high"),
-    Task("Chemistry", "Finish a self-exam", "medium"),
-    Task("Math", "Watch the online course", "low"),
-]
+print("Welcome to your To-Do list app!")
+while True:
+    print(
+        f"""You have {number_of_lists} lists. \ndefault list: "{task_lists[0].name}"\n"""
+    )
 
-to_do_lists.append(ToDoList("Konkour Study", test_tasks, 2))
+    menu = (
+        "\n      1. Show lists"
+        "\n      2. Show default tasks"
+        "\n      3. Save lists"
+        "\n      4. Exit Program"
+    )
 
-save_lists(to_do_lists)
+    menu_lines = menu.count("\n")
+
+    print("==== Menu ====" "\n Actions:" f"{menu}")
+
+    user_input = input("Enter item index to continue: ")
+
+    try:
+        choice = int(user_input)
+    except (TypeError, ValueError):
+        choice = None
+
+    if choice is None or choice < 1 or choice > menu_lines:
+        print("\nError >>>> Invalid input\n\n")
+        continue
+    elif choice == 1:
+        print("\n\n")
+        for i, task_list in enumerate(task_lists):
+            print(f"{i + 1}. {task_list.name}")
+        print("\n\n")
+
+    elif choice == 2:
+        task_lists[0].show_all()
+
+    elif choice == 3:
+        save_lists(task_lists)
+
+    elif choice == 4:
+        print("\n\nExiting program...")
+
+    exit()
