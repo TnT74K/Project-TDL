@@ -4,6 +4,7 @@ import re
 from definitions import *
 from list_manager import *
 
+
 def is_invalid(choice, maximum):
     try:
         choice = int(choice)
@@ -15,7 +16,9 @@ def is_invalid(choice, maximum):
         return True
     else:
         return False
-    
+
+
+# ======== Main run ========
 task_lists = load_lists()
 
 print("Welcome to your To-Do list app!")
@@ -46,12 +49,13 @@ while True:
         for i, task_list in enumerate(task_lists):
             print(f"      {i + 1}   | {task_list.name}")
 
-        print("\n ==== Actions ====")
+        print("\n ==== List Actions ====")
         print(
-          "     1. Create new list" \
-        "\n     2. Open list" \
-        "\n     3. remove list" \
-        "\n     4. Back to main menu")
+              "     1. Create new list"
+            "\n     2. Open list"
+            "\n     3. remove list"
+            "\n     4. Back to main menu"
+        )
 
         action = input("Enter item index to continue: ")
         if is_invalid(action, 4):
@@ -63,32 +67,34 @@ while True:
             if not name:
                 print("\nError >>>> List name cannot be empty\n\n")
                 continue
-            task_lists.append(task_lists[0].__class__(name))
+            new_id = str(max(int(task_list.id) for task_list in task_lists) + 1)
+            task_lists.append(ToDoList(name, [], new_id))
 
         elif action == 2:
             try:
-                list_id = int(input("Enter list ID to open: ")) - 1
+                list_id = (
+                    int(input("Enter list ID to open: ")) - 1
+                )  # -1 is used because lis IDs in Python begin from 0
             except (TypeError, ValueError):
                 list_id = -1
             if not 0 <= list_id < len(task_lists):
                 print("\nError >>>> Invalid list ID\n\n")
                 continue
-            task_lists[list_id].show_all()
+            task_lists[list_id].show_all_tasks()
 
         elif action == 3:
             try:
                 list_id = int(input("Enter list ID to remove: ")) - 1
             except (TypeError, ValueError):
                 list_id = -1
-            if list_id <= 0 or list_id >= len(task_lists):
+            if not 0 <= list_id < len(task_lists):
                 print("\nError >>>> Invalid list ID\n\n")
                 continue
             task_lists.pop(list_id)
 
-
     # Show default tasks
     elif choice == 2:
-        task_lists[0].show_all()
+        task_lists[0].show_all_tasks()
 
     # Save lists
     elif choice == 3:

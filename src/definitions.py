@@ -26,11 +26,10 @@ class ToDoList:
         except ValueError:
             print("Already removed!")
 
-    def show_all(self):
-        i = 1
+    def show_all_tasks(self):
         print(f"""\n ==== To-Do List: "{self.name}" ==== \n""")
-        for task in self.tasks:
-            print(f"{i}. | {task.name} | {task.pirority} | {task.description}")
+        for i, task in enumerate(self.tasks):
+            print(f"{i + 1}. | {task.name} | {task.pirority} | {task.description}")
         print(f" ==== ++++ ==== \n")
 
     def save_tasks(self):
