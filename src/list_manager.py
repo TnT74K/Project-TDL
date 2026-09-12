@@ -41,3 +41,6 @@ def save_lists(lists):
                 for task in current_list.tasks:
                     task_writer.writerow([task.name, task.description, task.pirority])
     print("Done!")
+
+if __name__ == "__main__":
+    print("This module is not meant to be run directly. Please run main.py instead.")

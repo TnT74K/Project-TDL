@@ -49,3 +49,7 @@ class ToDoList:
             for row in reader:
                 task = Task(row[0], row[1], row[2])
                 self.tasks.append(task)
+
+
+if __name__ == "__main__":
+    print("This module is not meant to be run directly. Please run main.py instead.")
