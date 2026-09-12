@@ -1,4 +1,8 @@
 import csv
+from pathlib import Path
+
+
+STORAGE_DIR = Path(__file__).resolve().parent / "storage"
 
 
 class Task:
@@ -33,7 +37,7 @@ class ToDoList:
         print(f" ==== ++++ ==== \n")
 
     def save_tasks(self):
-        with open(f"storage/L-{self.id}.csv", "w", newline="") as file:
+        with open(STORAGE_DIR / f"L-{self.id}.csv", "w", newline="") as file:
             writer = csv.writer(file)
 
             writer.writerow(["name", "description", "pirority"])
@@ -43,7 +47,7 @@ class ToDoList:
             writer.writerow(task)
 
     def load_tasks(self):
-        with open(f"storage/L-{self.id}.csv", "r", newline="") as file:
+        with open(STORAGE_DIR / f"L-{self.id}.csv", "r", newline="") as file:
             reader = csv.reader(file)
 
             for row in reader:

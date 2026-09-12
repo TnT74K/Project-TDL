@@ -1,8 +1,13 @@
 print("\n\n")
 
 import os
+from pathlib import Path
+
 from definitions import *
 from list_manager import *
+
+
+STORAGE_DIR = Path(__file__).resolve().parent / "storage"
 
 
 def is_invalid(choice, maximum):
@@ -105,7 +110,7 @@ while True:
 
             if input_confirmation == "y":
                 removed_list = task_lists.pop(list_id)
-                os.remove(f"storage/L-{list_id + 1}.csv")  # +1 to match the original ID
+                os.remove(STORAGE_DIR / f"L-{list_id + 1}.csv")  # +1 to match the original ID
                 save_lists(task_lists)  # Save the updated list of to-do lists
 
                 print(f"\nList '{removed_list.name}' removed successfully.\n")
