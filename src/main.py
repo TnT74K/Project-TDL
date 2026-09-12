@@ -51,7 +51,7 @@ while True:
 
         print("\n ==== List Actions ====")
         print(
-            "     1. Create new list"
+              "     1. Create new list"
             "\n     2. Open list"
             "\n     3. Remove list"
             "\n     4. Back to main menu"
@@ -78,7 +78,7 @@ while True:
             try:
                 list_id = (
                     int(input("Enter list ID to open: ")) - 1
-                )  # -1 is used because lis IDs in Python begin from 0
+                )  # -1 is used because list IDs in Python begin from 0
             except (TypeError, ValueError):
                 list_id = -1
             if not 0 <= list_id < len(task_lists):
