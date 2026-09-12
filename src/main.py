@@ -1,5 +1,4 @@
 print("\n\n")
-import re
 
 from definitions import *
 from list_manager import *
@@ -53,7 +52,7 @@ while True:
         print(
               "     1. Create new list"
             "\n     2. Open list"
-            "\n     3. remove list"
+            "\n     3. Remove list"
             "\n     4. Back to main menu"
         )
 
@@ -62,14 +61,18 @@ while True:
             continue
         action = int(action)
 
+        # ==== Create new list ====
         if action == 1:
             name = input("Enter the new list name: ").strip()
             if not name:
                 print("\nError >>>> List name cannot be empty\n\n")
                 continue
+
+            # New IDs are 1 number more than the highest existing ID in task_list
             new_id = str(max(int(task_list.id) for task_list in task_lists) + 1)
             task_lists.append(ToDoList(name, [], new_id))
 
+        # ==== Open list ====
         elif action == 2:
             try:
                 list_id = (
@@ -82,6 +85,9 @@ while True:
                 continue
             task_lists[list_id].show_all_tasks()
 
+            #TODO: implement CRUD operations for tasks within a list
+
+        # ==== Remove list ====
         elif action == 3:
             try:
                 list_id = int(input("Enter list ID to remove: ")) - 1
@@ -92,15 +98,15 @@ while True:
                 continue
             task_lists.pop(list_id)
 
-    # Show default tasks
+    # ==== Show default tasks ====
     elif choice == 2:
         task_lists[0].show_all_tasks()
 
-    # Save lists
+    # ==== Save lists ====
     elif choice == 3:
         save_lists(task_lists)
 
-    # Exit the program
+    # ==== Exit the program ====
     elif choice == 4:
         print("\n\nExiting program...")
         break
