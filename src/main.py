@@ -1,5 +1,6 @@
 print("\n\n")
 
+import os
 from definitions import *
 from list_manager import *
 
@@ -50,7 +51,7 @@ while True:
 
         print("\n ==== List Actions ====")
         print(
-              "     1. Create new list"
+            "     1. Create new list"
             "\n     2. Open list"
             "\n     3. Remove list"
             "\n     4. Back to main menu"
@@ -85,18 +86,31 @@ while True:
                 continue
             task_lists[list_id].show_all_tasks()
 
-            #TODO: implement CRUD operations for tasks within a list
+            # TODO: implement CRUD operations for tasks within a list
 
         # ==== Remove list ====
         elif action == 3:
             try:
                 list_id = int(input("Enter list ID to remove: ")) - 1
             except (TypeError, ValueError):
-                list_id = -1
+                list_id = -1  # To match the index in task_lists
+
             if not 0 <= list_id < len(task_lists):
                 print("\nError >>>> Invalid list ID\n\n")
                 continue
-            task_lists.pop(list_id)
+
+            input_confirmation = input(
+                f"Are you sure you want to remove the list '{task_lists[list_id].name}'? (y/n): "
+            ).strip().lower()
+
+            if input_confirmation == "y":
+                removed_list = task_lists.pop(list_id)
+                os.remove(f"storage/L-{list_id + 1}.csv")  # +1 to match the original ID
+                save_lists(task_lists)  # Save the updated list of to-do lists
+
+                print(f"\nList '{removed_list.name}' removed successfully.\n")
+            else:
+                print("\nList removal canceled.\n")
 
     # ==== Show default tasks ====
     elif choice == 2:
