@@ -1,19 +1,16 @@
 <mxfile host="65bd71144e">
     <diagram name="Page-1" id="5uSicg16vO-yI3TRVC76">
-        <mxGraphModel dx="512" dy="282" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="477" dy="274" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
                 <mxCell id="9mUmh-adj8m1ZztU-cxC-3" value="Task" style="swimlane;fontStyle=0;align=center;verticalAlign=middle;childLayout=stackLayout;horizontal=1;startSize=20;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;rounded=1;glass=0;strokeColor=light-dark(#D4AC0D,#D4AC0D);strokeWidth=3;fontFamily=zain;fontSize=12;fontColor=light-dark(#FFFFFF,#FFFFFF);labelBackgroundColor=none;resizable=1;textDirection=ltr;fillColor=light-dark(#0B2545,#0B2545);gradientColor=none;" parent="1" vertex="1">
-                    <mxGeometry x="220" y="502.5" width="160" height="89" as="geometry">
+                    <mxGeometry x="220" y="502.5" width="160" height="90" as="geometry">
                         <mxRectangle x="220" y="479.5" width="60" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="9mUmh-adj8m1ZztU-cxC-4" value="&lt;font face=&quot;Zain&quot; style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ name&lt;/font&gt;&lt;div&gt;&lt;font face=&quot;Zain&quot; style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ description&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Zain&quot; style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ pirority&lt;/font&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="9mUmh-adj8m1ZztU-cxC-3" vertex="1">
-                    <mxGeometry y="20" width="160" height="61" as="geometry"/>
-                </mxCell>
-                <mxCell id="9mUmh-adj8m1ZztU-cxC-5" value="" style="line;strokeWidth=1;fillColor=none;align=left;verticalAlign=middle;spacingTop=-1;spacingLeft=3;spacingRight=3;rotatable=0;labelPosition=right;points=[];portConstraint=eastwest;strokeColor=inherit;" parent="9mUmh-adj8m1ZztU-cxC-3" vertex="1">
-                    <mxGeometry y="81" width="160" height="8" as="geometry"/>
+                <mxCell id="9mUmh-adj8m1ZztU-cxC-4" value="&lt;div&gt;&lt;font face=&quot;Zain&quot;&gt;+ status&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-family: Zain; background-color: transparent;&quot;&gt;+ name&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Zain&quot; style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ description&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;font face=&quot;Zain&quot; style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ pirority&lt;/font&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=4;spacingRight=4;overflow=hidden;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;whiteSpace=wrap;html=1;" parent="9mUmh-adj8m1ZztU-cxC-3" vertex="1">
+                    <mxGeometry y="20" width="160" height="70" as="geometry"/>
                 </mxCell>
                 <mxCell id="9mUmh-adj8m1ZztU-cxC-11" style="edgeStyle=none;shape=connector;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=light-dark(#000000,#FFFFFF);strokeWidth=3;align=center;verticalAlign=middle;fontFamily=zain;fontSize=12;fontColor=light-dark(#000000,#FFFFFF);fontStyle=1;labelBackgroundColor=none;resizable=0;horizontal=1;textDirection=ltr;startArrow=none;startFill=0;endArrow=open;endFill=0;" parent="1" source="9mUmh-adj8m1ZztU-cxC-7" target="9mUmh-adj8m1ZztU-cxC-3" edge="1">
                     <mxGeometry relative="1" as="geometry"/>

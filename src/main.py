@@ -7,7 +7,7 @@ from definitions import *
 from list_manager import *
 
 
-STORAGE_DIR = Path(__file__).resolve().parent / "storage"
+STORAGE_DIR = Path(__file__).resolve().parent / "storage" # A little help from AI
 
 
 def is_invalid(choice, maximum):
@@ -92,6 +92,11 @@ while True:
             task_lists[list_id].show_all_tasks()
 
             # TODO: implement CRUD operations for tasks within a list
+            print("==== Choose an action ====" \
+            "1. Create a task" \
+            "2. Edit a task" \
+            "3. Remove a task" \
+            "4. Mark as done")
 
         # ==== Remove list ====
         elif action == 3:

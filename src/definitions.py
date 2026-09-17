@@ -6,7 +6,8 @@ STORAGE_DIR = Path(__file__).resolve().parent / "storage"
 
 
 class Task:
-    def __init__(self, name, description, pirority):  # Constructor
+    def __init__(self, status, name, description, pirority):  # Constructor
+        self.status = status
         self.name = name
         self.description = description
         self.pirority = pirority
@@ -33,25 +34,27 @@ class ToDoList:
     def show_all_tasks(self):
         print(f"""\n ==== To-Do List: "{self.name}" ==== \n""")
         for i, task in enumerate(self.tasks):
-            print(f"{i + 1}. | {task.name} | {task.pirority} | {task.description}")
+
+            holder = " " if task.status == "Done" else "x" # To show task status using "x" as "Done", and " " as "Unfinished"
+            print(f"{i + 1}. [{holder}]| {task.name} | {task.pirority} | {task.description}")
         print(f" ==== ++++ ==== \n")
 
     def save_tasks(self):
         with open(STORAGE_DIR / f"L-{self.id}.csv", "w", newline="") as file:
             writer = csv.writer(file)
 
-            writer.writerow(["name", "description", "pirority"])
+            writer.writerow(["status", "name", "description", "pirority"])
 
         for task in self.tasks:
-            task_holder = [task.name, task.descriptions, task.pirority]
+            task_holder = [task.status, task.name, task.descriptions, task.pirority]
             writer.writerow(task)
 
     def load_tasks(self):
         with open(STORAGE_DIR / f"L-{self.id}.csv", "r", newline="") as file:
-            reader = csv.reader(file)
+            reader = csv.DictReader(file)
 
             for row in reader:
-                task = Task(row[0], row[1], row[2])
+                task = Task(row["status"], row["name"], row["description"], row["pirority"])
                 self.tasks.append(task)
 
 

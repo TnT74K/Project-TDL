@@ -3,7 +3,6 @@ from pathlib import Path
 
 from definitions import *
 
-
 STORAGE_DIR = Path(__file__).resolve().parent / "storage"
 
 
@@ -22,7 +21,9 @@ def load_lists():
                 task_reader = csv.DictReader(file)
 
                 for row in task_reader:  # read all tasks witing a specific to-do list
-                    task = Task(row["name"], row["description"], row["pirority"])
+                    task = Task(
+                        row["status"], row["name"], row["description"], row["pirority"]
+                    )
                     current_list.tasks.append(task)
 
     return lists
@@ -40,12 +41,15 @@ def save_lists(lists):
             ) as list_tasks_file:
                 task_writer = csv.writer(list_tasks_file)
                 task_writer.writerow(
-                    ["name", "description", "pirority"]
+                    ["status", "name", "description", "pirority"]
                 )  # Write headers
 
                 for task in current_list.tasks:
-                    task_writer.writerow([task.name, task.description, task.pirority])
+                    task_writer.writerow(
+                        [task.status, task.name, task.description, task.pirority]
+                    )
     print("Done!")
+
 
 if __name__ == "__main__":
     print("This module is not meant to be run directly. Please run main.py instead.")
