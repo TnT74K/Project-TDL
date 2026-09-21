@@ -15,6 +15,8 @@ Rules:
 - Be integer
 - Be less than the 'maximum' variable
 """
+
+
 def get_valid_choice(choice, maximum):
     try:
         choice = int(choice)
@@ -182,9 +184,17 @@ while True:
 
             # ==== Mark a task ====
             elif action == 4:
-                pass
-
-
+                id = get_valid_choice(
+                    input("Enter task ID to mark: "), len(current_list.tasks) - 1
+                )
+                status_dict = {"1": "New", "2": "Done"}
+                choice = input("Enter status index (1. New, 2. Done): ")
+                if not choice in status_dict:
+                    print("\nError >>> Invalid status ID\n\n")
+                    continue
+                else:
+                    current_list.tasks[id].status = status_dict[choice]
+                    print("/nSuccess!/n/n")
 
         # ==== Remove list ====
         elif action == 3:
