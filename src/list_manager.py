@@ -8,8 +8,14 @@ STORAGE_DIR = Path(__file__).resolve().parent / "storage"
 
 def load_lists():
     lists = []  # To save all to-do lists in a list of ToDoList objects
+    lists_file_path = STORAGE_DIR / "Lists.csv" # A little help from AI
 
-    with open(STORAGE_DIR / "Lists.csv", "r", newline="") as file:
+    if not lists_file_path.exists():
+        with open(lists_file_path, "w", newline="") as file:
+            csv.writer(file).writerow(["ID", "name"])
+
+    with open(lists_file_path, "r", newline="") as file:
+        
         reader = csv.DictReader(file)
 
         for row in reader:  # read all to-do lists from csv
