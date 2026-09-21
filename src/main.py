@@ -8,18 +8,20 @@ from list_manager import *
 
 STORAGE_DIR = Path(__file__).resolve().parent / "storage"  # A little help from AI
 
-
-def is_invalid(choice, maximum):
+""" 
+This functionis called in menus after the user enters an item index.
+This method validates the input to match our rules.
+Rules:
+- Be integer
+- Be less than the 'maximum' variable
+"""
+def get_valid_choice(choice, maximum):
     try:
         choice = int(choice)
     except (TypeError, ValueError):
-        choice = None
+        return None
 
-    if choice is None or choice < 1 or choice > maximum:
-        print("\nError >>>> Invalid input\n\n")
-        return True
-    else:
-        return False
+    return choice if 1 <= choice <= maximum else None
 
 
 # ======== Main run ========
@@ -32,16 +34,14 @@ while True:
         f"""You have {number_of_lists} lists. \ndefault list: "{task_lists[0].name}"\n"""
     )
 
-    menu =  "\n      1. Show lists" \
-            "\n      3. Save lists" \
-            "\n      4. Exit Program"
+    menu = "\n      1. Show lists" "\n      2. Save lists" "\n      3. Exit Program"
 
     print("==== Menu ====" "\n Actions:" f"{menu}")
 
-    choice = input("Enter item index to continue: ")
-    if is_invalid(choice, 4):
+    choice = get_valid_choice(input("Enter item index to continue: "), 3)
+    if choice is None:
+        print("\nError >>>> Invalid input\n\n")
         continue
-    choice = int(choice)
 
     # ==== Show lists ====
     if choice == 1:
@@ -50,17 +50,18 @@ while True:
         for i, task_list in enumerate(task_lists):
             print(f"      {i + 1}   | {task_list.name}")
 
-        print( "==== List Actions ===="
+        print(
+            "==== List Actions ===="
             "\n     1. Create new list"
             "\n     2. Open list"
             "\n     3. Remove list"
             "\n     4. Back to main menu"
         )
 
-        action = input("Enter item index to continue: ")
-        if is_invalid(action, 4):
+        action = get_valid_choice(input("Enter item index to continue: "), 4)
+        if action is None:
+            print("\nError >>>> Invalid input\n\n")
             continue
-        action = int(action)
 
         # ==== Create new list ====
         if action == 1:
@@ -75,30 +76,29 @@ while True:
 
         # ==== Open list ====
         elif action == 2:
-            try:
-                list_id = (
-                    int(input("Enter list ID to open: ")) - 1
-                )  # -1 is used because list IDs in Python begin from 0
-            except (TypeError, ValueError):
-                list_id = -1
-            if not 0 <= list_id < len(task_lists):
+            list_id = get_valid_choice(
+                input("Enter list ID to open: "), len(task_lists)
+            )
+            if list_id is None:
                 print("\nError >>>> Invalid list ID\n\n")
                 continue
+            list_id -= 1  # List IDs start at 1 for the user, but indexes start at 0.
 
             current_list = task_lists[list_id]
             current_list.show_all_tasks()
 
             print(
-                "==== Choose an action ===="
+                "==== Task Actions ===="
                 "\n     1. Create a task"
                 "\n     2. Edit a task"
                 "\n     3. Remove a task"
-                "\n     4. Back to list menu"
+                "\n     4. Mark a task"
+                "\n     5. Back to list menu"
             )
-            action = input("Enter action index to continue: ")
-            if is_invalid(action, 4):
+            action = get_valid_choice(input("Enter action index to continue: "), 5)
+            if action is None:
+                print("\nError >>>> Invalid input\n\n")
                 continue
-            action = int(action)
 
             # ==== Create a task ===
             if action == 1:
@@ -106,11 +106,13 @@ while True:
                 description = input("Enter description: ").strip()
                 priority = input("Choose priority (1. Low, 2. Medium, 3. High): ")
                 priorities = {"1": "Low", "2": "Medium", "3": "High"}
+                # I used a dictinary instead of 'if-else' or 'match' syntax
 
                 if not name or priority not in priorities:
                     print("\nError >>>> Task name and priority must be valid\n")
                     continue
 
+                    # new tasks are marked as 'new' in their 'status' property
                 current_list.add_task(
                     Task("New", name, description, priorities[priority])
                 )
@@ -122,13 +124,13 @@ while True:
                     print("\nError >>>> This list has no tasks\n")
                     continue
 
-                try:
-                    task_index = int(input("Enter task ID to edit: ")) - 1
-                except ValueError:
-                    task_index = -1
-                if not 0 <= task_index < len(current_list.tasks):
+                task_index = get_valid_choice(
+                    input("Enter task ID to edit: "), len(current_list.tasks)
+                )
+                if task_index is None:
                     print("\nError >>>> Invalid task ID\n")
                     continue
+                task_index -= 1
 
                 task = current_list.tasks[task_index]
                 name = input(f"Enter task name [{task.name}]: ").strip()
@@ -158,13 +160,13 @@ while True:
                     print("\nError >>>> This list has no tasks\n")
                     continue
 
-                try:
-                    task_index = int(input("Enter task ID to remove: ")) - 1
-                except ValueError:
-                    task_index = -1
-                if not 0 <= task_index < len(current_list.tasks):
+                task_index = get_valid_choice(
+                    input("Enter task ID to remove: "), len(current_list.tasks)
+                )
+                if task_index is None:
                     print("\nError >>>> Invalid task ID\n")
                     continue
+                task_index -= 1
 
                 task = current_list.tasks[task_index]
                 confirmation = (
@@ -178,16 +180,21 @@ while True:
                 else:
                     print("\nTask removal canceled.\n")
 
+            # ==== Mark a task ====
+            elif action == 4:
+                pass
+
+
+
         # ==== Remove list ====
         elif action == 3:
-            try:
-                list_id = int(input("Enter list ID to remove: ")) - 1
-            except (TypeError, ValueError):
-                list_id = -1  # To match the index in task_lists
-
-            if not 0 <= list_id < len(task_lists):
+            list_id = get_valid_choice(
+                input("Enter list ID to remove: "), len(task_lists)
+            )
+            if list_id is None:
                 print("\nError >>>> Invalid list ID\n\n")
                 continue
+            list_id -= 1
 
             input_confirmation = (
                 input(
