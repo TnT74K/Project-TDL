@@ -35,8 +35,8 @@ class ToDoList:
         print(f"""\n ==== To-Do List: "{self.name}" ==== \n""")
         for i, task in enumerate(self.tasks):
 
-            holder = " " if task.status == "Done" else "x" # To show task status using "x" as "Done", and " " as "Unfinished"
-            print(f"{i + 1}. [{holder}]| {task.name} | {task.pirority} | {task.description}")
+            holder = " " if task.status == "New" else "x" # To show task status using "x" as "Done", and " " as "Unfinished"
+            print(f"{i + 1}. [{holder}] | {task.name} | {task.pirority} | {task.description}")
         print(f" ==== ++++ ==== \n")
 
     def save_tasks(self):

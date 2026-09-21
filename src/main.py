@@ -29,12 +29,11 @@ def get_valid_choice(choice, maximum):
 # ======== Main run ========
 task_lists = load_lists()
 
+print("=+=+=+=+= ToDo List =+=+=+=+=")
 print("Welcome to your To-Do list app!")
 while True:
     number_of_lists = len(task_lists)
-    print(
-        f"""You have {number_of_lists} lists. \ndefault list: "{task_lists[0].name}"\n"""
-    )
+    print(f"""You have {number_of_lists} lists.\n""")
 
     menu = "\n      1. Show lists" "\n      2. Save lists" "\n      3. Exit Program"
 
@@ -47,7 +46,7 @@ while True:
 
     # ==== Show lists ====
     if choice == 1:
-        print("\n\n ==== To-Do Lists ====")
+        print("\n\n== To-Do Lists ==")
         print("     ID   | Name")
         for i, task_list in enumerate(task_lists):
             print(f"      {i + 1}   | {task_list.name}")
@@ -75,6 +74,7 @@ while True:
             # New IDs are 1 number more than the highest existing ID in task_list
             new_id = str(max(int(task_list.id) for task_list in task_lists) + 1)
             task_lists.append(ToDoList(name, [], new_id))
+            print("\nSuccess\n\n")
 
         # ==== Open list ====
         elif action == 2:
@@ -185,16 +185,22 @@ while True:
             # ==== Mark a task ====
             elif action == 4:
                 id = get_valid_choice(
-                    input("Enter task ID to mark: "), len(current_list.tasks) - 1
+                    input("Enter task ID to mark: "), len(current_list.tasks)
                 )
+                if id == None:
+                    print("Error >>> Invalid task ID")
+                    continue
+
                 status_dict = {"1": "New", "2": "Done"}
                 choice = input("Enter status index (1. New, 2. Done): ")
                 if not choice in status_dict:
                     print("\nError >>> Invalid status ID\n\n")
                     continue
                 else:
-                    current_list.tasks[id].status = status_dict[choice]
-                    print("/nSuccess!/n/n")
+                    current_list.tasks[id - 1].status = status_dict[choice]
+                    # used '-1' to match task index in 'tasks' list
+                    
+                    print("/nSuccess/n/n")
 
         # ==== Remove list ====
         elif action == 3:
