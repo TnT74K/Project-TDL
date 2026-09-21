@@ -1,4 +1,4 @@
-name,description,pirority
-Physics,Do 100 tests,high
-Chemistry,Finish a self-exam,medium
-Math,Watch the online course,low
+status,name,description,pirority
+new,Physics,Do 100 tests,high
+new,Chemistry,Finish a self-exam,medium
+new,Math,Watch the online course,low
