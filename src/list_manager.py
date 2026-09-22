@@ -56,8 +56,7 @@ def save_lists(lists):
                     task_writer.writerow(
                         [task.status, task.name, task.description, task.pirority]
                     )
-    print("Done!")
-
+                    
 def remove_storage():
     for filename in os.listdir(STORAGE_DIR):
         if filename.endswith(".csv"):
