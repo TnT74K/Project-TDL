@@ -84,6 +84,7 @@ while True:
                 new_id = str(max(int(task_list.id) for task_list in task_lists) + 1)
 
             task_lists.append(ToDoList(name, [], new_id))
+            save_lists(task_lists)
             print("\nSuccess\n\n")
 
         # ==== Open list ====
@@ -132,6 +133,7 @@ while True:
                 current_list.add_task(
                     Task("New", name, description, priorities[priority])
                 )
+                save_lists(task_lists)
                 print("\nTask created successfully.\n")
 
             # ==== Edit a task ====
@@ -168,6 +170,7 @@ while True:
                 task.description = description or task.description
                 task.pirority = priorities.get(priority, task.pirority)
                 task.status = status or task.status
+                save_lists(task_lists)
                 print("\nTask updated successfully.\n")
 
             # ==== Remove a task ====
@@ -215,7 +218,8 @@ while True:
                     current_list.tasks[id - 1].status = status_dict[choice]
                     # used '-1' to match task index in 'tasks' list
 
-                    print("/nSuccess/n/n")
+                    save_lists(task_lists)
+                    print("\nSuccess\n\n")
 
         # ==== Remove list ====
         elif action == 3:
