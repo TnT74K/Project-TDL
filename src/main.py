@@ -12,10 +12,11 @@ STORAGE_DIR = Path(__file__).resolve().parent / "storage"  # A little help from 
 The function below is called in menus after the user enters an item index.
 This method validates the input to match our rules.
 Rules:
-- Be integer
-- Be less than the 'maximum' variable
+- Be integer.
+- Be less than the 'maximum' variable.
+- If no maximum defined, being an int is enough.
 """
-def get_valid_choice(choice, maximum):
+def get_valid_choice(choice, maximum = float('inf')):
     try:
         choice = int(choice)
     except (TypeError, ValueError):
@@ -53,8 +54,8 @@ while True:
             print("You have no lists.")
         else:
             print("     ID   | Name | Number of tasks")
-            for i, task_list in enumerate(task_lists):
-                print(f"      {i + 1}   | {task_list.name} | {len(task_list.tasks)}")
+            for task_list in task_lists:
+                print(f"      {task_list.id}   | {task_list.name} | {len(task_list.tasks)}")
 
         print(
             "\n==== List Actions ===="
@@ -218,30 +219,33 @@ while True:
 
         # ==== Remove list ====
         elif action == 3:
-            list_id = get_valid_choice(
-                input("Enter list ID to remove: "), len(task_lists)
-            )
-            if list_id is None:
+            choosen_id = get_valid_choice(
+                input("Enter list ID to remove: "))
+            if choosen_id is None:
                 print("\nError >>>> Invalid list ID\n\n")
                 continue
-            list_id -= 1
+
+            list_to_remove = next(
+                (task_list for task_list in task_lists if int(task_list.id) == choosen_id),
+                None,
+            )
 
             input_confirmation = (
                 input(
-                    f"Are you sure you want to remove the list '{task_lists[list_id].name}'? (y/n): "
+                    f"Are you sure you want to remove the list '{list_to_remove.name}'? (y/n): "
                 )
                 .strip()
                 .lower()
             )
 
             if input_confirmation == "y":
-                removed_list = task_lists.pop(list_id)
+                task_lists.remove(list_to_remove)
                 os.remove(
-                    STORAGE_DIR / f"L-{list_id + 1}.csv"
+                    STORAGE_DIR / f"L-{choosen_id}.csv"
                 )  # +1 to match the original ID
                 save_lists(task_lists)  # Save the updated list of to-do lists
 
-                print(f"\nList '{removed_list.name}' removed successfully.\n")
+                print(f"\nList '{list_to_remove.name}' removed successfully.\n")
             else:
                 print("\nList removal canceled.\n")
 
