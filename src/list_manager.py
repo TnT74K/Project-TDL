@@ -1,9 +1,11 @@
 import csv
+import os
 from pathlib import Path
 
 from definitions import *
 
 STORAGE_DIR = Path(__file__).resolve().parent / "storage"
+STORAGE_DIR.mkdir(parents=True, exist_ok=True) # Help from AI
 
 
 def load_lists():
@@ -56,6 +58,12 @@ def save_lists(lists):
                     )
     print("Done!")
 
+def remove_storage():
+    for filename in os.listdir(STORAGE_DIR):
+        if filename.endswith(".csv"):
+            os.remove(os.path.join(STORAGE_DIR, filename))
+
+    load_lists()
 
 if __name__ == "__main__":
     print("This module is not meant to be run directly. Please run main.py instead.")

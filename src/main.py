@@ -49,10 +49,11 @@ while True:
         "\n     1. Open list"
         "\n     2. Create new list"
         "\n     3. Remove list"
-        "\n     4. Exit program"
+        "\n     4. Reset"
+        "\n     5. Exit program"
     )
 
-    action = get_valid_choice(input("Enter item index to continue: "), 4)
+    action = get_valid_choice(input("Enter item index to continue: "), 5)
     if action is None:
         print("\nError >>>> Invalid input\n\n")
         continue
@@ -240,14 +241,17 @@ while True:
         print("⚠️ Warning: resetting means removing EVERY list and its items.")
 
         input_confirmation = (
-        input(
-            f"Are you sure you want to continue? (y/n): "
-        )
-            .strip()
-            .lower()
+            input(f"Are you sure you want to continue? (y/n): ").strip().lower()
         )
         if input_confirmation == "y":
-            pass
+            print("Removing in progress...")
+            remove_storage()
+            print("/nSuccess/n/n")
+
+        else:
+            print("/nStorage removal canceled./n")
+            continue
+
     # ==== Exit the program ====
     elif action == 5:
         save_lists(task_lists)
