@@ -32,46 +32,31 @@ print("=+=+=+=+= ToDo List =+=+=+=+=")
 print("Welcome to your To-Do list app!")
 while True:
     number_of_lists = len(task_lists)
-    plural_indicator = "" if number_of_lists == 1 else "s"
+
+    # ==== Show lists ====
+    print("\n\n== To-Do Lists ==")
+    if number_of_lists == 0:
+        print("You have no lists.")
+    else:
+        print("     ID   | Name | Number of tasks")
+        for task_list in task_lists:
+            print(f"      {task_list.id}   | {task_list.name} | {len(task_list.tasks)}")
 
     print(
-        f"""\n\tYou have {"no" if number_of_lists == 0 else number_of_lists} list{plural_indicator}."""
+        "\n==== List Actions ===="
+        "\n     1. Create new list"
+        "\n     2. Open list"
+        "\n     3. Remove list"
+        "\n     4. Exit program"
     )
 
-    menu = "\n\t 1. Show lists" "\n\t 2. Save lists" "\n\t 3. Exit Program"
-
-    print("============ Menu ============" "\nActions:" f"{menu}")
-
-    choice = get_valid_choice(input("Enter item index to continue: "), 3)
-    if choice is None:
+    action = get_valid_choice(input("Enter item index to continue: "), 4)
+    if action is None:
         print("\nError >>>> Invalid input\n\n")
         continue
 
-    # ==== Show lists ====
-    if choice == 1:
-        print("\n\n== To-Do Lists ==")
-        if number_of_lists == 0:
-            print("You have no lists.")
-        else:
-            print("     ID   | Name | Number of tasks")
-            for task_list in task_lists:
-                print(f"      {task_list.id}   | {task_list.name} | {len(task_list.tasks)}")
-
-        print(
-            "\n==== List Actions ===="
-            "\n     1. Create new list"
-            "\n     2. Open list"
-            "\n     3. Remove list"
-            "\n     4. Back to main menu"
-        )
-
-        action = get_valid_choice(input("Enter item index to continue: "), 4)
-        if action is None:
-            print("\nError >>>> Invalid input\n\n")
-            continue
-
-        # ==== Create new list ====
-        if action == 1:
+    # ==== Create new list ====
+    if action == 1:
             name = input("Enter the new list name: ").strip()
             if not name:
                 print("\nError >>>> List name cannot be empty\n\n")
@@ -87,8 +72,8 @@ while True:
             save_lists(task_lists)
             print("\nSuccess\n\n")
 
-        # ==== Open list ====
-        elif action == 2:
+    # ==== Open list ====
+    elif action == 2:
             list_id = get_valid_choice(
                 input("Enter list ID to open: "), len(task_lists)
             )
@@ -221,8 +206,8 @@ while True:
                     save_lists(task_lists)
                     print("\nSuccess\n\n")
 
-        # ==== Remove list ====
-        elif action == 3:
+    # ==== Remove list ====
+    elif action == 3:
             choosen_id = get_valid_choice(
                 input("Enter list ID to remove: "))
             if choosen_id is None:
@@ -253,11 +238,8 @@ while True:
             else:
                 print("\nList removal canceled.\n")
 
-    # ==== Save lists ====
-    elif choice == 2:
-        save_lists(task_lists)
-
     # ==== Exit the program ====
-    elif choice == 3:
+    elif action == 4:
+        save_lists(task_lists)
         print("\n\nExiting program...")
         break
