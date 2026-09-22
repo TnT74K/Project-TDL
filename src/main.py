@@ -246,6 +246,7 @@ while True:
         if input_confirmation == "y":
             print("Removing in progress...")
             remove_storage()
+            task_lists = load_lists()
             print("/nSuccess/n/n")
 
         else:
