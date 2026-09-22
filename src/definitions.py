@@ -35,8 +35,12 @@ class ToDoList:
         print(f"""\n ==== To-Do List: "{self.name}" ==== \n""")
         for i, task in enumerate(self.tasks):
 
-            holder = " " if task.status == "New" else "x" # To show task status using "x" as "Done", and " " as "Unfinished"
-            print(f"{i + 1}. [{holder}] | {task.name} | {task.pirority} | {task.description}")
+            # To show task status using "x" as "Done", and " " as "Unfinished"
+            status_holder = " " if task.status == "New" else "✅" 
+
+            pirority_color = "🔵" if task.pirority == "Low" else "🟡" if task.pirority == "Medium" else "🔴"
+
+            print(f"{i + 1}. [{status_holder}] | {task.name} | {pirority_color} {task.pirority} | {task.description}")
         print(f" ==== ++++ ==== \n")
 
     def save_tasks(self):
@@ -45,9 +49,9 @@ class ToDoList:
 
             writer.writerow(["status", "name", "description", "pirority"])
 
-        for task in self.tasks:
-            task_holder = [task.status, task.name, task.descriptions, task.pirority]
-            writer.writerow(task)
+            for task in self.tasks:
+                task_holder = [task.status, task.name, task.description, task.pirority]
+                writer.writerow(task)
 
     def load_tasks(self):
         with open(STORAGE_DIR / f"L-{self.id}.csv", "r", newline="") as file:

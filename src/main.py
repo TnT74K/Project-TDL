@@ -9,14 +9,12 @@ from list_manager import *
 STORAGE_DIR = Path(__file__).resolve().parent / "storage"  # A little help from AI
 
 """ 
-This functionis called in menus after the user enters an item index.
+The function below is called in menus after the user enters an item index.
 This method validates the input to match our rules.
 Rules:
 - Be integer
 - Be less than the 'maximum' variable
 """
-
-
 def get_valid_choice(choice, maximum):
     try:
         choice = int(choice)
@@ -33,11 +31,15 @@ print("=+=+=+=+= ToDo List =+=+=+=+=")
 print("Welcome to your To-Do list app!")
 while True:
     number_of_lists = len(task_lists)
-    print(f"""You have {number_of_lists} lists.\n""")
+    plural_indicator = "" if number_of_lists == 1 else "s"
 
-    menu = "\n      1. Show lists" "\n      2. Save lists" "\n      3. Exit Program"
+    print(
+        f"""\n\tYou have {"no" if number_of_lists == 0 else number_of_lists} list{plural_indicator}."""
+    )
 
-    print("==== Menu ====" "\n Actions:" f"{menu}")
+    menu = "\n\t 1. Show lists" "\n\t 2. Save lists" "\n\t 3. Exit Program"
+
+    print("============ Menu ============" "\nActions:" f"{menu}")
 
     choice = get_valid_choice(input("Enter item index to continue: "), 3)
     if choice is None:
@@ -47,12 +49,15 @@ while True:
     # ==== Show lists ====
     if choice == 1:
         print("\n\n== To-Do Lists ==")
-        print("     ID   | Name")
-        for i, task_list in enumerate(task_lists):
-            print(f"      {i + 1}   | {task_list.name}")
+        if number_of_lists == 0:
+            print("You have no lists.")
+        else:
+            print("     ID   | Name | Number of tasks")
+            for i, task_list in enumerate(task_lists):
+                print(f"      {i + 1}   | {task_list.name} | {len(task_list.tasks)}")
 
         print(
-            "==== List Actions ===="
+            "\n==== List Actions ===="
             "\n     1. Create new list"
             "\n     2. Open list"
             "\n     3. Remove list"
@@ -71,8 +76,12 @@ while True:
                 print("\nError >>>> List name cannot be empty\n\n")
                 continue
 
-            # New IDs are 1 number more than the highest existing ID in task_list
-            new_id = str(max(int(task_list.id) for task_list in task_lists) + 1)
+            if len(task_lists) == 0:
+                new_id = "1"
+            else:
+                # New IDs are 1 number more than the highest existing ID in task_list
+                new_id = str(max(int(task_list.id) for task_list in task_lists) + 1)
+
             task_lists.append(ToDoList(name, [], new_id))
             print("\nSuccess\n\n")
 
@@ -87,10 +96,14 @@ while True:
             list_id -= 1  # List IDs start at 1 for the user, but indexes start at 0.
 
             current_list = task_lists[list_id]
-            current_list.show_all_tasks()
+            print(f"""\n==== Taks List: "{current_list.name}" ====""")
+            if len(current_list.tasks) == 0:
+                print("Task list is empty.")
+            else:
+                current_list.show_all_tasks()
 
             print(
-                "==== Task Actions ===="
+                "\n==== Task Actions ===="
                 "\n     1. Create a task"
                 "\n     2. Edit a task"
                 "\n     3. Remove a task"
@@ -178,6 +191,7 @@ while True:
                 )
                 if confirmation == "y":
                     current_list.remove_task(task)
+                    save_lists(task_lists)
                     print("\nTask removed successfully.\n")
                 else:
                     print("\nTask removal canceled.\n")
@@ -199,7 +213,7 @@ while True:
                 else:
                     current_list.tasks[id - 1].status = status_dict[choice]
                     # used '-1' to match task index in 'tasks' list
-                    
+
                     print("/nSuccess/n/n")
 
         # ==== Remove list ====
