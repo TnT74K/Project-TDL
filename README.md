@@ -1,7 +1,12 @@
 # Project TDL
 
 TDL: To-Do List  
-A repository to work on a to-do list made using Python.  
+A repository to work on a to-do list made using Python. 
+Written entirely with Python.
+Data saving made possible by using CSV.
+
+---
+
 This is a educational project of my the Python course I have.  
 I've got a little help form AI 😉
 So feel free to discover it yourself!
