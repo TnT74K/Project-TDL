@@ -27,7 +27,7 @@ This program needs to create a file named `Lists.csv` at `src/storage/`.
 
 - Text-based interface.
 - I couldn't clear console when a new menu appears.
-- Primitive UX
+- Primitive UX 😬
 
 ## How to run
 
